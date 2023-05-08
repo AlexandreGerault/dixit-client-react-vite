@@ -1,18 +1,18 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { lobbySlice } from "./slice/lobby/slice";
-import { InMemoryLobbyService } from "./slice/lobby/adapters/in-memory-lobby-service";
+import { LobbyService } from "./slice/lobby/adapters/lobby-service";
 
 const rootReducer = combineReducers({
   [lobbySlice.name]: lobbySlice.reducer,
 });
 
-function createStore() {
+function createStore({lobbyService}: {lobbyService: LobbyService}) {
   const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         thunk: {
           extraArgument: {
-            lobbyService: new InMemoryLobbyService(),
+            lobbyService,
           }
         }
       })
