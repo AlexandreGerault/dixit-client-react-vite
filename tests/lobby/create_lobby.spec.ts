@@ -4,16 +4,16 @@ import { selectors } from "~/core/slice/lobby";
 import { useCases } from "~/core/slice/lobby/use_cases";
 
 describe("Create Lobby", () => {
-  it("has a default null lobby", () => {
+  it("has a default null lobby", async () => {
     const store = createStore();
 
     expect(selectors.getLobby(store.getState())).toBeNull();
   });
 
-  it("can create a lobby", () => {
+  it("can create a lobby", async () => {
     const store = createStore();
 
-    store.dispatch(
+    await store.dispatch(
       useCases.createLobby({
         name: "lobby-name",
       })

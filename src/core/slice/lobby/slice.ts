@@ -1,17 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { useCases } from "./use_cases";
+import { Lobby } from "./entities/lobby";
 
-type LobbyState = null | { name: string };
+export const lobbyAdapter = createEntityAdapter<Lobby>();
 
-const initialState: LobbyState = null;
+export const lobbyInitialState = lobbyAdapter.getInitialState();
 
 const lobbySlice = createSlice({
   name: "lobby",
-  initialState,
+  initialState: lobbyInitialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(useCases.createLobby, (state, action) => {
-      return action.payload;
+    builder.addCase(useCases.createLobby.fulfilled, (state, action) => {
+      lobbyAdapter.removeAll(state);
+      lobbyAdapter.setOne(state, action.payload);
     });
   },
 });
