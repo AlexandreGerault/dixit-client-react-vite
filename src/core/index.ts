@@ -1,12 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { lobbySlice } from "./slice/lobby/slice";
-import { LobbyService } from "./slice/lobby/adapters/lobby-service";
+import { LobbyGateway } from "./slice/lobby/adapters/lobby-service";
 
 const rootReducer = combineReducers({
   [lobbySlice.name]: lobbySlice.reducer,
 });
 
-function createStore({lobbyService}: {lobbyService: LobbyService}) {
+function createStore({lobbyService}: {lobbyService: LobbyGateway}) {
   const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({

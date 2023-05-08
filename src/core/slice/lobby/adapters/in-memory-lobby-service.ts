@@ -1,7 +1,7 @@
 import { Lobby } from "../entities/lobby";
-import { LobbyService } from "./lobby-service";
+import { LobbyGateway } from "./lobby-service";
 
-export class InMemoryLobbyService implements LobbyService {
+export class InMemoryLobbyService implements LobbyGateway {
     lobbies: Lobby[];
 
     constructor() {
