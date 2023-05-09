@@ -15,6 +15,9 @@ const lobbySlice = createSlice({
       lobbyAdapter.removeAll(state);
       lobbyAdapter.setOne(state, action.payload);
     });
+    builder.addCase(useCases.createLobby.rejected, (state, action) => {
+      throw new Error(action.error.message);
+    });
   },
 });
 
