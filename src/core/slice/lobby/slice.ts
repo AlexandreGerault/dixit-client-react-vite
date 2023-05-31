@@ -1,22 +1,25 @@
-import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { useCases } from "./use_cases";
-import { Lobby } from "./entities/lobby";
+import { Lobby } from "./entities";
+import { Player } from "./entities";
 
-export const lobbyAdapter = createEntityAdapter<Lobby>();
-
-export const lobbyInitialState = lobbyAdapter.getInitialState();
+interface LobbyState {
+  lobby: Lobby | null;
+  error?: string;
+  players: Player[];
+}
 
 const lobbySlice = createSlice({
   name: "lobby",
-  initialState: lobbyInitialState,
+  initialState: {lobby: null, players: []} as LobbyState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(useCases.createLobby.fulfilled, (state, action) => {
-      lobbyAdapter.removeAll(state);
-      lobbyAdapter.setOne(state, action.payload);
+      state.lobby = action.payload.lobby;
+      state.players = [{username: action.payload.username}];
     });
     builder.addCase(useCases.createLobby.rejected, (state, action) => {
-      throw new Error(action.error.message);
+      state.error = action.error.message;
     });
   },
 });

@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { lobbySlice } from "./slice/lobby/slice";
-import { LobbyGateway } from "./slice/lobby/adapters/lobby-service";
+import { LobbyGateway } from "./slice/lobby/adapters";
 
 const rootReducer = combineReducers({
   [lobbySlice.name]: lobbySlice.reducer,

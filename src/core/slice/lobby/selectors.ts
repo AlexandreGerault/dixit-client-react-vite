@@ -1,10 +1,15 @@
 import { RootState } from "~/core";
-import { lobbyAdapter } from "./slice";
 
 const selectors = {
   getLobby(state: RootState) {
-    return lobbyAdapter.getSelectors().selectAll(state.lobby)[0] ?? null;
+    return state.lobby.lobby;
   },
+  getLastError(state: RootState) {
+    return state.lobby.error;
+  },
+  getPlayers(state: RootState) {
+    return state.lobby.players;
+  }
 };
 
 export { selectors };
